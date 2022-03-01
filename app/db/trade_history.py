@@ -3,7 +3,7 @@ Details regarding the trade history
 """
 
 
-import inv.db
+import app.db
 
 
 my_table = 'trade_history'

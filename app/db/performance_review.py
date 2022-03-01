@@ -3,7 +3,7 @@ Details regarding the performance_review table.
 """
 
 
-import inv.db
+import app.db
 
 
 my_table = 'performance_review'
