@@ -39,7 +39,7 @@ def legend(drawing, gd):
     """
     
     # Calculate width of legend
-    dev_null = StringIO.StringIO()
+    dev_null = StringIO()
     c = Canvas(dev_null)
     max_width = 0
     for text in gd['legend_text']:

@@ -28,8 +28,9 @@ from app.commands.render_charts import RenderChart
 def build_parser():
     parser = argparse.ArgumentParser(description = globals()['__doc__'],
                                      formatter_class = argparse.RawDescriptionHelpFormatter)
+    parser.usage = 'python -m app.commands.report [options]'
     parser.add_argument('-o', '--out_file',
-                        default='../report.pdf',
+                        default='report.pdf',
                         help='The output PDF file. '
                         'Default: %(default)s.')
     parser.add_argument('-t', '--title',

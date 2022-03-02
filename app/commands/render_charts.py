@@ -20,7 +20,7 @@ import re
 
 log = logging.getLogger(__name__)
 
-db_file = '../investments.db'
+db_file = 'investments.db'
 
 
 def build_parser():
@@ -31,7 +31,7 @@ def build_parser():
                         default=None,
                         help='One or more stocks. Default: all stocks')
     parser.add_argument('-o', '--out_dir',
-                        default='../charts',
+                        default='charts',
                         help='Directory to write the chart PDFs. '
                         'Default: %(default)s.')
     return parser
@@ -42,6 +42,7 @@ class RenderChart(object):
     def __init__(self, args, accounts=None):
         self.args = args
         th = TradeHistory()
+        self.tc = TradeConfirmation()
         if accounts:
             self.accounts = accounts
         else:
@@ -87,9 +88,16 @@ class RenderChart(object):
                     filename = os.path.join(self.args.out_dir, '%s.pdf' % (symbol.replace('/', '-')))
                 else:
                     filename = None
+                sym_details = self.tc.fetch(symbol)
+                if len(sym_details):
+                    name = sym_details[0]['name']
+                else:
+                    name = ''
+                    print(f'Unknown ticker "{symbol}"')
                 chart = render_chart(filename,
-                                     '%s %s' % (symbol,
-                                                self.accounts.account_name_lookup(h['account'])),
+                                     '%s %s %s' % (name, 
+                                                   f'({symbol})',
+                                                   self.accounts.account_name_lookup(h['account'])),
                                      [data1, data2], ('price', 'cost'))
                 if not filename:
                     charts.append(chart)

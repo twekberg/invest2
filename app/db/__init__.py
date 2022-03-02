@@ -56,7 +56,7 @@ class Database(object):
         """
         Get just the date part of a date/time.
         """
-        if isinstance(d, str) or isinstance(d, unicode):
+        if isinstance(d, str):
             return datetime.strptime(d.split(' ', 1)[0], '%Y-%m-%d')
         return d
 

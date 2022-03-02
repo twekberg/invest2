@@ -11,7 +11,7 @@ my_table = 'trade_history'
 
 class TradeHistory(object):
     def __init__(self):
-        self.database = inv.db.database
+        self.database = app.db.database
         self.rows = self.database.fetch_all(my_table)
         self.database.add(my_table, self)
 
