@@ -6,10 +6,10 @@ Outputs HTML to view in a browser for the following:
  Form 8949
 """
 
-from ..db.trade_confirmation import TradeConfirmation
-from ..db.account import Account
-from ..db.activity import Activity
-from ..db import database
+from app.db.trade_confirmation import TradeConfirmation
+from app.db.account import Account
+from app.db.activity import Activity
+from app.db import database
 
 import argparse
 from datetime import datetime
@@ -164,7 +164,9 @@ class App(object):
                         # completing.
                         matching_trades.append((buys, sells))
                     break
+                print(f'{buy_index=}, {stock_history=}')
                 this_buy = stock_history[BUY][buy_index]
+                print(f'{this_buy=}')
                 buys.append(this_buy)
                 this_sell = stock_history[SELL][sell_index]
                 sells.append(this_sell)

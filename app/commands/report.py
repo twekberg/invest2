@@ -14,7 +14,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.rl_config import defaultPageSize
 import time
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import calendar
 
 from app.db.account import Account
@@ -131,7 +131,9 @@ class Pages():
         self.title = args.title
         self.footer_title = args.footer_title
         self.n_pages = n_pages
-        self.now = datetime.now()
+        timezone_offset = -8.0  # Pacific Standard Time
+        tzinfo = timezone(timedelta(hours=timezone_offset))
+        self.now = datetime.now(tzinfo)
 
 
     def parse_footer(self, page):
@@ -262,10 +264,6 @@ class Action():
         return elements
 
 
-def action(args):
-    action = Action(args)
-    action.render()
-
     
 if __name__ == '__main__':
-    action(build_parser().parse_args())
+    Action(build_parser().parse_args()).render()

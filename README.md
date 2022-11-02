@@ -66,7 +66,7 @@ TODO
 ----
 
 TODO:
-Fix bug in stock_sales.
+Fix bug in stock_sales. Think about using an SQL query to group the data.
 Look to see what is next.
 
 DONE:

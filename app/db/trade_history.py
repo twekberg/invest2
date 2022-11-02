@@ -22,11 +22,18 @@ class TradeHistory(object):
         Sort by history_date.
         """
         rows = []
+        row_number = 0
         for row in self.rows:
+            row_number += 1
             if row['symbol'][0] == '#':
                 # Ignore commentary.
                 continue
-            row['history_date'] = self.database.fix_date(row['history_date'])
+            try:
+                row['history_date'] = self.database.fix_date(row['history_date'])
+            except ValueError as e:
+                print(f'Caught exception ({e}). {row_number=}, {my_table=}, '
+                      f"{row['history_date']=}, {row=}")
+                raise e
             # Add computed values
             row['unit_delta'] = row['current_price'] - row['unit_cost']
             row['cum_delta'] = row['unit_delta'] * row['n_shares']

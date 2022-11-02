@@ -312,6 +312,7 @@ VALUES(:trade_date, :is_buy, :n_shares, :share_price, :total, :account,
                                          r'\s+(stock\s+distribution)$',
                                          r'\s+(redemption)$',
                                          r'\s+(fee)$',
+                                         r'\s+(Reimburse MF fees\s+\dQ\d\d)$',
                                          r'\s+(bought|sold)\s+(\d+)(?:\.\d+)?$']:
                     m = re.search(activity_type_re, name)
                     if m:
